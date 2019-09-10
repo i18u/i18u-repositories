@@ -1,0 +1,11 @@
+D:\Development\i18u\mongo-util\src\i18u.Repositories.Mongo\obj\Debug\netstandard2.0\i18u.Repositories.Mongo.csprojAssemblyReference.cache
+D:\Development\i18u\mongo-util\src\i18u.Repositories.Mongo\obj\Debug\netstandard2.0\i18u.Repositories.Mongo.csproj.CoreCompileInputs.cache
+D:\Development\i18u\mongo-util\src\i18u.Repositories.Mongo\obj\Debug\netstandard2.0\i18u.Repositories.Mongo.AssemblyInfoInputs.cache
+D:\Development\i18u\mongo-util\src\i18u.Repositories.Mongo\obj\Debug\netstandard2.0\i18u.Repositories.Mongo.AssemblyInfo.cs
+D:\Development\i18u\mongo-util\src\i18u.Repositories.Mongo\bin\Debug\netstandard2.0\i18u.Repositories.Mongo.deps.json
+D:\Development\i18u\mongo-util\src\i18u.Repositories.Mongo\bin\Debug\netstandard2.0\i18u.Repositories.Mongo.dll
+D:\Development\i18u\mongo-util\src\i18u.Repositories.Mongo\bin\Debug\netstandard2.0\i18u.Repositories.Mongo.pdb
+D:\Development\i18u\mongo-util\src\i18u.Repositories.Mongo\bin\Debug\netstandard2.0\i18u.Repositories.Mongo.xml
+D:\Development\i18u\mongo-util\src\i18u.Repositories.Mongo\obj\Debug\netstandard2.0\i18u.Repositories.Mongo.dll
+D:\Development\i18u\mongo-util\src\i18u.Repositories.Mongo\obj\Debug\netstandard2.0\i18u.Repositories.Mongo.xml
+D:\Development\i18u\mongo-util\src\i18u.Repositories.Mongo\obj\Debug\netstandard2.0\i18u.Repositories.Mongo.pdb

@@ -1,0 +1,12 @@
+using MongoDB.Bson;
+
+namespace i18u.Repositories.Mongo.Results
+{
+    /// <summary>
+    /// Represents the result of an insert operation.
+    /// </summary>
+    internal class InsertResult : Result, IInsertResult
+    {
+        public ObjectId[] Ids => throw new System.NotImplementedException();
+    }
+}
