@@ -3,13 +3,15 @@ namespace i18u.Repositories.Mongo.Interop
     /// <inheritdoc cref="IMongoClient" />
     public class MongoClient
     {
-        private MongoDB.Driver.MongoClient _client;
-        
+	    private const string AuthenticationDatabase = "admin";
+
+	    private readonly MongoDB.Driver.MongoClient _client;
+
         /// <inheritdoc cref="IMongoClient.GetDatabase" />
         public IMongoDatabase GetDatabase(string name)
         {
-            var databoose = _client.GetDatabase(name);
-            return new MongoDatabase(databoose);
+            var database = _client.GetDatabase(name);
+            return new MongoDatabase(database);
         }
 
         /// <summary>
@@ -21,11 +23,13 @@ namespace i18u.Repositories.Mongo.Interop
         /// <param name="password">The password of the user to authenticate as.</param>
         public MongoClient(string host, int port, string username, string password)
         {
-            _client = new MongoDB.Driver.MongoClient(new MongoDB.Driver.MongoClientSettings
-            {
-                Server = new MongoDB.Driver.MongoServerAddress(host, port),
-                Credential = MongoDB.Driver.MongoCredential.CreateCredential("admin", username, password)
-            });
+	        var clientSettings = new MongoDB.Driver.MongoClientSettings
+	        {
+		        Server = new MongoDB.Driver.MongoServerAddress(host, port),
+		        Credential = MongoDB.Driver.MongoCredential.CreateCredential(AuthenticationDatabase, username, password)
+	        };
+
+	        _client = new MongoDB.Driver.MongoClient(clientSettings);
         }
     }
 }
