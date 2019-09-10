@@ -7,13 +7,13 @@ using MongoDB.Driver;
 namespace i18u.Repositories.Mongo
 {
     /// <summary>
-    /// A read-only repository for Mongo.
+    /// A read-only repository for MongoDB.
     /// </summary>
     /// <typeparam name="TModel">The database model.</typeparam>
     public interface IReadOnlyMongoRepository<TModel> : IReadOnlyMongoRepository<TModel, TModel> where TModel : IMongoModel {}
 
     /// <summary>
-    /// A read-only repository for Mongo.
+    /// A read-only repository for MongoDB.
     /// </summary>
     /// <typeparam name="TModel">The database model.</typeparam>
     /// <typeparam name="TProjection">The projection to return.</typeparam>

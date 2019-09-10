@@ -3,7 +3,7 @@ using MongoDB.Driver;
 namespace i18u.Repositories.Mongo.Interop
 {
     /// <summary>
-    /// A mongo database collection.
+    /// A MongoDB database collection.
     /// </summary>
     /// <typeparam name="T">The type of entities stored in the collection.</typeparam>
     public interface IMongoCollection<T> where T : IMongoModel

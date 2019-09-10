@@ -1,10 +1,16 @@
 namespace i18u.Repositories.Mongo.Interop
 {
     /// <inheritdoc cref="IMongoClient" />
-    public class MongoClient
+    internal class MongoClient
     {
+	    /// <summary>
+	    /// The name of the MongoDB authentication database to use.
+	    /// </summary>
 	    private const string AuthenticationDatabase = "admin";
 
+	    /// <summary>
+	    /// The <see cref="MongoDB.Driver.MongoClient"/> instance to use.
+	    /// </summary>
 	    private readonly MongoDB.Driver.MongoClient _client;
 
         /// <inheritdoc cref="IMongoClient.GetDatabase" />

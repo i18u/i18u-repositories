@@ -3,7 +3,7 @@ using System;
 namespace i18u.Repositories.Mongo.Results
 {
     /// <summary>
-    /// Repesents a result from a mongo operation
+    /// Represents a result from a MongoDB operation
     /// </summary>
     public interface IResult
     {
