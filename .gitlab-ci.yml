@@ -9,7 +9,7 @@ build-mongo:
   tags:
     - docker
   script:
-    - dotnet publish src/i18u.Repositories.Mongo -c Release -o out --no-restore
+    - dotnet publish src/i18u.Repositories.Mongo -c Release -o out
     - cp src/i18u.Repositories.Mongo/out ./out/i18u.Repositories.Mongo
   artifacts:
     paths:
