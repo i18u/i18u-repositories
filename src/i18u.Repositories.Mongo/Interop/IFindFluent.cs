@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading;
 using MongoDB.Driver;
 
@@ -8,7 +9,7 @@ namespace i18u.Repositories.Mongo.Interop
 	/// </summary>
 	/// <typeparam name="T1">Source type</typeparam>
 	/// <typeparam name="T2">Projected type</typeparam>
-	internal interface IFindFluent<T1, T2>
+	public interface IFindFluent<T1, T2>
     {
 	    /// <inheritdoc cref="MongoDB.Driver.IFindFluent{TDocument,TProjection}.Filter"/>
 	    FilterDefinition<T1> Filter { get; set; }
@@ -21,5 +22,11 @@ namespace i18u.Repositories.Mongo.Interop
 
 	    /// <inheritdoc cref="MongoDB.Driver.IFindFluent{TDocument,TProjection}.Skip"/>
 	    IFindFluent<T1, T2> Skip(int? skip);
+
+		/// <inheritdoc cref="MongoDB.Driver.IFindFluent{TDocument,TProjection}.Project"/>
+        IFindFluent<T1, TProjection> Project<TProjection>(ProjectionDefinition<T1, TProjection> projection);
+
+		/// <inheritdoc cref="MongoDB.Driver.IAsyncCursorSourceExtensions.ToList{T2}"/>
+        IList<T2> ToList();
     }
 }
