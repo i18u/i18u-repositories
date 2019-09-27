@@ -18,20 +18,20 @@ build-mongo:
     paths:
       - out
 
-test:
+test-mongo:
   stage: test
   image: microsoft/dotnet:sdk
   dependencies: []
   tags:
     - docker
   script:
-    - dotnet test src /p:CollectCoverage=true 
+    - dotnet test src/i18u.Repositories.Mongo /p:CollectCoverage=true 
   coverage: '/i18u\.Repositories\.Mongo \| ([\d\.]+)%/'
 
-publish:
+.publish-mongo:
   stage: publish
   dependencies:
-    - build
+    - build-mongo
   only:
     - tags
   tags:
