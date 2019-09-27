@@ -23,7 +23,7 @@ test-mongo:
   tags:
     - docker
   script:
-    - dotnet test src/i18u.Repositories.Mongo /p:CollectCoverage=true 
+    - dotnet test src/i18u.Repositories.Tests /p:CollectCoverage=true 
   coverage: '/i18u\.Repositories\.Mongo \| ([\d\.]+)%/'
 
 .publish-mongo:
@@ -36,4 +36,3 @@ test-mongo:
     - docker
   script:
     - dotnet test src /p:CollectCoverage=true 
-  coverage: '/i18u\.Repositories\.Mongo \| ([\d\.]+)%/'
