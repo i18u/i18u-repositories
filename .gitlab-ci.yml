@@ -3,9 +3,6 @@ stages:
   - test
   - publish
 
-before_script:
-  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-
 build-mongo:
   stage: build
   image: microsoft/dotnet:sdk
