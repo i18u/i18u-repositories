@@ -25,6 +25,7 @@ test-mongo:
 
 publish-mongo:
   stage: publish
+  image: microsoft/dotnet:sdk
   dependencies: []
   only:
     - tags
