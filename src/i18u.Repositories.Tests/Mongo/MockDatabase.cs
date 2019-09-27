@@ -5,9 +5,16 @@ namespace i18u.Repositories.Tests.Mongo
 {
     internal class MockDatabase : IMongoDatabase
     {
+		public string DatabaseName { get; }
+
+        public MockDatabase(string name)
+		{
+            DatabaseName = name;
+        }
+
         public IMongoCollection<T> GetCollection<T>(string collectionName) where T : IMongoModel
         {
-            return new MockCollection(collectionName);
+            return new MockCollection<T>(collectionName);
         }
     }
 }

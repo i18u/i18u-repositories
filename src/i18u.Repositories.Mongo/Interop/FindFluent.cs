@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading;
 using MongoDB.Driver;
 
@@ -16,7 +17,7 @@ namespace i18u.Repositories.Mongo.Interop
 		/// <summary>
 		/// The <see cref="MongoDB.Driver.IFindFluent{T1,T2}"/> to use.
 		/// </summary>
-		private readonly MongoDB.Driver.IFindFluent<T1, T2> _fluentFind;
+		private MongoDB.Driver.IFindFluent<T1, T2> _fluentFind;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="FindFluent{T1,T2}" /> class.
@@ -36,13 +37,26 @@ namespace i18u.Repositories.Mongo.Interop
 		/// <inheritdoc />
 		public IFindFluent<T1, T2> Limit(int? limit)
 		{
-			return _fluentFind.Limit(limit);
-		}
+			_fluentFind = _fluentFind.Limit(limit);
+            return this;
+        }
 
 		/// <inheritdoc />
 		public IFindFluent<T1, T2> Skip(int? skip)
 		{
 			throw new System.NotImplementedException();
 		}
-	}
+
+		/// <inheritdoc />
+        public IFindFluent<T1, TProjection> Project<TProjection>(ProjectionDefinition<T1, TProjection> projection)
+        {
+            return new FindFluent<T1, TProjection>(_fluentFind.Project(projection));
+        }
+
+		/// <inheritdoc />
+        public IList<T2> ToList()
+        {
+            return _fluentFind.ToList();
+        }
+    }
 }
