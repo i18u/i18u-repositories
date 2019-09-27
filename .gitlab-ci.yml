@@ -6,26 +6,27 @@ stages:
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
 
-build:
+build-mongo:
   stage: build
+  image: microsoft/dotnet:sdk
   tags:
     - docker
   script:
-    - docker build . --build-arg CI_COMMIT_TAG=$CI_COMMIT_TAG --tag=cookbook-ingredient-api
-    - mkdir out
-    - docker save cookbook-ingredient-api > out/cookbook-ingredient-api.tar
+    - dotnet publish src/i18u.Repositories.Mongo -c Release -o out --no-restore
+    - cp src/i18u.Repositories.Mongo/out ./out/i18u.Repositories.Mongo
   artifacts:
     paths:
       - out
 
 test:
   stage: test
+  image: microsoft/dotnet:sdk
   dependencies: []
   tags:
     - docker
   script:
-    - docker build . -f ./Dockerfile.test --build-arg CI_COMMIT_TAG=$CI_COMMIT_TAG --tag=cookbook-test-$CI_COMMIT_SHA
-    - docker run cookbook-test-$CI_COMMIT_SHA
+    - dotnet test src /p:CollectCoverage=true 
+  coverage: '/i18u\.Repositories\.Mongo \| ([\d\.]+)%/'
 
 publish:
   stage: publish
@@ -36,6 +37,5 @@ publish:
   tags:
     - docker
   script:
-    - docker load -i out/cookbook-ingredient-api.tar
-    - docker tag cookbook-ingredient-api $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
-    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
+    - dotnet test src /p:CollectCoverage=true 
+  coverage: '/i18u\.Repositories\.Mongo \| ([\d\.]+)%/'

@@ -8,13 +8,11 @@ COPY ./src/i18u.Repositories.sln ./
 RUN dotnet restore
 
 COPY ./src/ ./
-RUN find | sed 's|[^/]*/|- |g'
 RUN dotnet publish -c Release -o out --no-restore
 
-FROM microsoft/dotnet:aspnetcore-runtime
+FROM microsoft/dotnet:sdk
 WORKDIR /app
-ARG CI_COMMIT_TAG=1.0.0
 
-COPY --from=build-env /app/i18u.Repositories.Tests/out .
+COPY --from=build-env /app/ .
 
 ENTRYPOINT [ "dotnet", "test", "i18u.Repositories.Tests" ]
