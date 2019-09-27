@@ -10,6 +10,7 @@ build-mongo:
     - docker
   script:
     - dotnet publish src/i18u.Repositories.Mongo -c Release -o out
+    - mkdir out
     - cp -r src/i18u.Repositories.Mongo/out ./out/i18u.Repositories.Mongo
   artifacts:
     paths:
