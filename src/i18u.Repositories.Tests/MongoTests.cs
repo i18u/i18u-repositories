@@ -12,7 +12,7 @@ namespace i18u.Repositories.Tests
         {
             var mockClient = new MockClient();
             var mongoRepo = new MongoRepository<MockMongoEntity>(mockClient, "testDb", "testCollection");
-            
+
         }
     }
 }

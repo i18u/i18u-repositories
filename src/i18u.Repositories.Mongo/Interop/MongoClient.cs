@@ -3,15 +3,15 @@ namespace i18u.Repositories.Mongo.Interop
     /// <inheritdoc cref="IMongoClient" />
     public class MongoClient : IMongoClient
     {
-	    /// <summary>
-	    /// The name of the MongoDB authentication database to use.
-	    /// </summary>
-	    private const string AuthenticationDatabase = "admin";
+        /// <summary>
+        /// The name of the MongoDB authentication database to use.
+        /// </summary>
+        private const string AuthenticationDatabase = "admin";
 
-	    /// <summary>
-	    /// The <see cref="MongoDB.Driver.MongoClient"/> instance to use.
-	    /// </summary>
-	    private readonly MongoDB.Driver.MongoClient _client;
+        /// <summary>
+        /// The <see cref="MongoDB.Driver.MongoClient"/> instance to use.
+        /// </summary>
+        private readonly MongoDB.Driver.MongoClient _client;
 
         /// <inheritdoc cref="IMongoClient.GetDatabase" />
         public IMongoDatabase GetDatabase(string name)
@@ -29,13 +29,13 @@ namespace i18u.Repositories.Mongo.Interop
         /// <param name="password">The password of the user to authenticate as.</param>
         public MongoClient(string host, int port, string username, string password)
         {
-	        var clientSettings = new MongoDB.Driver.MongoClientSettings
-	        {
-		        Server = new MongoDB.Driver.MongoServerAddress(host, port),
-		        Credential = MongoDB.Driver.MongoCredential.CreateCredential(AuthenticationDatabase, username, password)
-	        };
+            var clientSettings = new MongoDB.Driver.MongoClientSettings
+            {
+                Server = new MongoDB.Driver.MongoServerAddress(host, port),
+                Credential = MongoDB.Driver.MongoCredential.CreateCredential(AuthenticationDatabase, username, password)
+            };
 
-	        _client = new MongoDB.Driver.MongoClient(clientSettings);
+            _client = new MongoDB.Driver.MongoClient(clientSettings);
         }
     }
 }
