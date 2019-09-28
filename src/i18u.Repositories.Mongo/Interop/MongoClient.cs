@@ -1,7 +1,7 @@
 namespace i18u.Repositories.Mongo.Interop
 {
     /// <inheritdoc cref="IMongoClient" />
-    internal class MongoClient
+    public class MongoClient
     {
 	    /// <summary>
 	    /// The name of the MongoDB authentication database to use.
