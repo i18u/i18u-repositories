@@ -15,7 +15,7 @@ namespace i18u.Repositories.Mongo
         /// <param name="client">The <see cref="IMongoClient"/> to use.</param>
         /// <param name="database">The name of the database to use.</param>
         /// <param name="collection">The name of the collection to use.</param>
-        public MongoRepository(IMongoClient client, string database, string collection) 
+        public MongoRepository(IMongoClient client, string database, string collection)
             : base(client, database, collection, Builders<TModel>.Projection.Expression(z => z))
         {
         }
