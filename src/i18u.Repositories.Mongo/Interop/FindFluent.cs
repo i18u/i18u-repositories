@@ -44,8 +44,9 @@ namespace i18u.Repositories.Mongo.Interop
 		/// <inheritdoc />
 		public IFindFluent<T1, T2> Skip(int? skip)
 		{
-			throw new System.NotImplementedException();
-		}
+            _fluentFind = _fluentFind.Skip(skip);
+            return this;
+        }
 
 		/// <inheritdoc />
         public IFindFluent<T1, TProjection> Project<TProjection>(ProjectionDefinition<T1, TProjection> projection)

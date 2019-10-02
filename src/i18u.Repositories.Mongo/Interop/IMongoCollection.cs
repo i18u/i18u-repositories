@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using i18u.Repositories.Mongo.Results;
 using MongoDB.Driver;
+using UpdateResult = MongoDB.Driver.UpdateResult;
 
 namespace i18u.Repositories.Mongo.Interop
 {
@@ -43,5 +44,35 @@ namespace i18u.Repositories.Mongo.Interop
 		/// <param name="bypassValidation">Whether to bypass document validation. Default false.</param>
 		/// <param name="isOrdered">Whether the operations are to complete in order. Default false.</param>
 		void InsertMany(IEnumerable<T> models, bool bypassValidation, bool isOrdered);
+
+		/// <summary>
+		/// Updates a single Mongo entity matching the given filter.
+		/// </summary>
+		/// <param name="filter">The filter to use.</param>
+		/// <param name="update">The update to apply.</param>
+        UpdateResult UpdateOne(FilterDefinition<T> filter, UpdateDefinition<T> update);
+
+        /// <summary>
+        /// Updates a single Mongo entity matching the given filter.
+        /// </summary>
+        /// <param name="filter">The filter to use.</param>
+        /// <param name="update">The update to apply.</param>
+        /// <param name="options">The options to use when updating.</param>
+        UpdateResult UpdateOne(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions options);
+
+		/// <summary>
+		/// Updates many Mongo entities matching the given filter.
+		/// </summary>
+		/// <param name="filter">The filter to use.</param>
+        /// <param name="update">The update to apply.</param>
+        UpdateResult UpdateMany(FilterDefinition<T> filter, UpdateDefinition<T> update);
+
+        /// <summary>
+        /// Updates many Mongo entities matching the given filter.
+        /// </summary>
+        /// <param name="filter">The filter to use.</param>
+        /// <param name="update">The update to apply.</param>
+        /// <param name="options">The options to use when updating.</param>
+        UpdateResult UpdateMany(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions options);
     }
 }

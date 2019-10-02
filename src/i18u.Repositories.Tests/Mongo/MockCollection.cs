@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using MongoDB.Driver;
 
 namespace i18u.Repositories.Mongo.Interop
@@ -16,6 +17,66 @@ namespace i18u.Repositories.Mongo.Interop
         }
 
         public IFindFluent<T, T> Find(FilterDefinition<T> filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertOne(T model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertOne(T model, bool bypassValidation)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertMany(IEnumerable<T> models)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertMany(IEnumerable<T> models, bool bypassValidation, bool isOrdered)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateOne(FilterDefinition<T> filter, UpdateDefinition<T> update)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateOne(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions options)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateMany(FilterDefinition<T> filter, UpdateDefinition<T> update)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateMany(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions options)
+        {
+            throw new NotImplementedException();
+        }
+
+        UpdateResult IMongoCollection<T>.UpdateOne(FilterDefinition<T> filter, UpdateDefinition<T> update)
+        {
+            throw new NotImplementedException();
+        }
+
+        UpdateResult IMongoCollection<T>.UpdateOne(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions options)
+        {
+            throw new NotImplementedException();
+        }
+
+        UpdateResult IMongoCollection<T>.UpdateMany(FilterDefinition<T> filter, UpdateDefinition<T> update)
+        {
+            throw new NotImplementedException();
+        }
+
+        UpdateResult IMongoCollection<T>.UpdateMany(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions options)
         {
             throw new NotImplementedException();
         }

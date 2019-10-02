@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using i18u.Repositories.Mongo.Results;
 using MongoDB.Driver;
+using UpdateResult = MongoDB.Driver.UpdateResult;
 
 namespace i18u.Repositories.Mongo.Interop
 {
@@ -60,6 +61,30 @@ namespace i18u.Repositories.Mongo.Interop
         public void InsertMany(IEnumerable<T> entities)
 		{
             InsertMany(entities, false, false);
+        }
+
+		/// <inheritdoc />
+		public UpdateResult UpdateOne(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions options)
+		{
+            return _collection.UpdateOne(filter, update, options);
+        }
+
+		/// <inheritdoc />
+		public UpdateResult UpdateOne(FilterDefinition<T> filter, UpdateDefinition<T> update)
+		{
+            return _collection.UpdateOne(filter, update);
+        }
+
+		/// <inheritdoc />
+		public UpdateResult UpdateMany(FilterDefinition<T> filter, UpdateDefinition<T> update)
+		{
+            return _collection.UpdateMany(filter, update);
+        }
+
+		/// <inheritdoc />
+		public UpdateResult UpdateMany(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions options)
+		{
+            return _collection.UpdateMany(filter, update, options);
         }
     }
 }

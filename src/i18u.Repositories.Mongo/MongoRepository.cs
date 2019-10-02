@@ -6,6 +6,7 @@ using i18u.Repositories.Mongo.Results;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using IMongoClient = i18u.Repositories.Mongo.Interop.IMongoClient;
+using UpdateResult = i18u.Repositories.Mongo.Results.UpdateResult;
 
 namespace i18u.Repositories.Mongo
 {
@@ -122,13 +123,56 @@ namespace i18u.Repositories.Mongo
         /// <inheritdoc />
         public IUpdateResult Update(ObjectId id, UpdateDefinition<TModel> updateDefinition)
         {
-            throw new System.NotImplementedException();
+            var result = new UpdateResult();
+            var sw = Stopwatch.StartNew();
+
+            try
+			{
+				var filter = Builders<TModel>.Filter.Eq(entity => entity.Id, id);
+                var mResult = Collection.UpdateOne(filter, updateDefinition);
+
+                result.Success = true;
+                result.DocumentsAffected = mResult.ModifiedCount;
+            }
+			catch (Exception ex)
+			{
+                result.ServerError = ex;
+                result.Success = false;
+                result.DocumentsAffected = 0;
+            }
+			finally
+			{
+                sw.Stop();
+            }
+
+            return result;
         }
 
         /// <inheritdoc />
         public IUpdateResult UpdateMany(FilterDefinition<TModel> filterDefinition, UpdateDefinition<TModel> updateDefinition)
         {
-            throw new System.NotImplementedException();
+            var result = new UpdateResult();
+            var sw = Stopwatch.StartNew();
+
+			try
+			{
+                var mResult = Collection.UpdateMany(filterDefinition, updateDefinition);
+
+                result.Success = true;
+                result.DocumentsAffected = mResult.ModifiedCount;
+            }
+			catch (Exception ex)
+			{
+                result.ServerError = ex;
+                result.Success = false;
+                result.DocumentsAffected = 0;
+            }
+			finally
+			{
+                sw.Stop();
+            }
+
+            return result;
         }
     }
 }
