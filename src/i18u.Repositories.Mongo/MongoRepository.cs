@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using i18u.Repositories.Mongo.Results;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -50,13 +53,70 @@ namespace i18u.Repositories.Mongo
         /// <inheritdoc />
         public IInsertResult Insert(TModel model)
         {
-            throw new System.NotImplementedException();
+            var result = new InsertResult();
+			var sw = Stopwatch.StartNew();
+
+            try
+            {
+
+				Collection.InsertOne(model, false);
+
+				result.Success = true;
+            	result.DocumentsAffected = 1;
+				result.Ids = new []
+				{
+					model.Id,
+				};
+            }
+			catch (Exception ex)
+			{
+                result.ServerError = ex;
+                result.Success = false;
+            	result.DocumentsAffected = 0;
+            }
+			finally
+			{
+                sw.Stop();
+            }
+
+			result.TimeTaken = sw.Elapsed;
+
+            return result;
         }
 
         /// <inheritdoc />
-        public IInsertResult InsertMany(IEnumerable<TModel> model)
+        public IInsertResult InsertMany(IEnumerable<TModel> models)
         {
-            throw new System.NotImplementedException();
+            var result = new InsertResult();
+			var sw = Stopwatch.StartNew();
+
+			try
+			{
+				Collection.InsertMany(models);
+
+                var affectedModelIds = models
+					.Where(model => model.Id == default)
+                    .Select(model => model.Id)
+                    .ToArray();
+
+                result.Success = true;
+            	result.DocumentsAffected = affectedModelIds.Length;
+				result.Ids = affectedModelIds;
+			}
+			catch (Exception ex)
+			{
+                result.ServerError = ex;
+                result.Success = false;
+                result.DocumentsAffected = 0;
+            }
+			finally
+			{
+                sw.Stop();
+            }
+
+            result.TimeTaken = sw.Elapsed;
+
+            return result;
         }
 
         /// <inheritdoc />

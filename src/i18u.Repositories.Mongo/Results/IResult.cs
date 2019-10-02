@@ -16,5 +16,15 @@ namespace i18u.Repositories.Mongo.Results
         /// The number of documents affected by the operation.
         /// </summary>
         long DocumentsAffected { get; }
+
+		/// <summary>
+		/// Whether or not the operation was successful.
+		/// </summary>
+        bool Success { get; }
+
+		/// <summary>
+		/// The error that was returned by the server, if any.
+		/// </summary>
+        Exception ServerError { get; }
     }
 }

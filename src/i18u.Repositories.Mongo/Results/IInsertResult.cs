@@ -1,3 +1,4 @@
+using System;
 using MongoDB.Bson;
 
 namespace i18u.Repositories.Mongo.Results

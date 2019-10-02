@@ -10,5 +10,11 @@ namespace i18u.Repositories.Mongo.Results
 
         /// <inheritdoc />
         public long DocumentsAffected { get; internal set; }
+
+		/// <inheritdoc />
+        public bool Success { get; internal set; }
+
+		/// <inheritdoc />
+        public Exception ServerError { get; internal set; }
     }
 }

@@ -7,6 +7,7 @@ namespace i18u.Repositories.Mongo.Results
     /// </summary>
     internal class InsertResult : Result, IInsertResult
     {
-        public ObjectId[] Ids => throw new System.NotImplementedException();
+		/// <inheritdoc />
+        public ObjectId[] Ids { get;  internal set; }
     }
 }
