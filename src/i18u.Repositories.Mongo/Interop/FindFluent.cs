@@ -38,26 +38,26 @@ namespace i18u.Repositories.Mongo.Interop
 		public IFindFluent<T1, T2> Limit(int? limit)
 		{
 			_fluentFind = _fluentFind.Limit(limit);
-            return this;
-        }
+			return this;
+		}
 
 		/// <inheritdoc />
 		public IFindFluent<T1, T2> Skip(int? skip)
 		{
-            _fluentFind = _fluentFind.Skip(skip);
-            return this;
-        }
+			_fluentFind = _fluentFind.Skip(skip);
+			return this;
+		}
 
 		/// <inheritdoc />
-        public IFindFluent<T1, TProjection> Project<TProjection>(ProjectionDefinition<T1, TProjection> projection)
-        {
-            return new FindFluent<T1, TProjection>(_fluentFind.Project(projection));
-        }
+		public IFindFluent<T1, TProjection> Project<TProjection>(ProjectionDefinition<T1, TProjection> projection)
+		{
+			return new FindFluent<T1, TProjection>(_fluentFind.Project(projection));
+		}
 
 		/// <inheritdoc />
-        public IList<T2> ToList()
-        {
-            return _fluentFind.ToList();
-        }
-    }
+		public IList<T2> ToList()
+		{
+			return _fluentFind.ToList();
+		}
+	}
 }
