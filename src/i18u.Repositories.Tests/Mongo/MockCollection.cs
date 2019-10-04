@@ -41,42 +41,42 @@ namespace i18u.Repositories.Mongo.Interop
             throw new NotImplementedException();
         }
 
-        public void UpdateOne(FilterDefinition<T> filter, UpdateDefinition<T> update)
+        public UpdateResult UpdateOne(FilterDefinition<T> filter, UpdateDefinition<T> update)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateOne(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions options)
+        public UpdateResult UpdateOne(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions options)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateMany(FilterDefinition<T> filter, UpdateDefinition<T> update)
+        public UpdateResult UpdateMany(FilterDefinition<T> filter, UpdateDefinition<T> update)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateMany(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions options)
+        public UpdateResult UpdateMany(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions options)
         {
             throw new NotImplementedException();
         }
 
-        UpdateResult IMongoCollection<T>.UpdateOne(FilterDefinition<T> filter, UpdateDefinition<T> update)
+        public DeleteResult DeleteOne(FilterDefinition<T> filter)
         {
             throw new NotImplementedException();
         }
 
-        UpdateResult IMongoCollection<T>.UpdateOne(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions options)
+        public DeleteResult DeleteOne(FilterDefinition<T> filter, DeleteOptions opts)
         {
             throw new NotImplementedException();
         }
 
-        UpdateResult IMongoCollection<T>.UpdateMany(FilterDefinition<T> filter, UpdateDefinition<T> update)
+        public DeleteResult DeleteMany(FilterDefinition<T> filter)
         {
             throw new NotImplementedException();
         }
 
-        UpdateResult IMongoCollection<T>.UpdateMany(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions options)
+        public DeleteResult DeleteMany(FilterDefinition<T> filter, DeleteOptions opts)
         {
             throw new NotImplementedException();
         }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using i18u.Repositories.Mongo.Results;
 using MongoDB.Driver;
+using DeleteResult = MongoDB.Driver.DeleteResult;
 using UpdateResult = MongoDB.Driver.UpdateResult;
 
 namespace i18u.Repositories.Mongo.Interop
@@ -85,6 +86,30 @@ namespace i18u.Repositories.Mongo.Interop
 		public UpdateResult UpdateMany(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions options)
 		{
             return _collection.UpdateMany(filter, update, options);
+        }
+
+		/// <inheritdoc />
+		public DeleteResult DeleteOne(FilterDefinition<T> filter)
+		{
+            return _collection.DeleteOne(filter);
+        }
+
+		/// <inheritdoc />
+		public DeleteResult DeleteOne(FilterDefinition<T> filter, DeleteOptions options)
+		{
+            return _collection.DeleteOne(filter, options);
+        }
+
+		/// <inheritdoc />
+        public DeleteResult DeleteMany(FilterDefinition<T> filter)
+        {
+            return _collection.DeleteMany(filter);
+        }
+
+		/// <inheritdoc />
+		public DeleteResult DeleteMany(FilterDefinition<T> filter, DeleteOptions options)
+		{
+            return _collection.DeleteMany(filter, options);
         }
     }
 }

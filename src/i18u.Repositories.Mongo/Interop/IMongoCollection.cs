@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using i18u.Repositories.Mongo.Results;
 using MongoDB.Driver;
+using DeleteResult = MongoDB.Driver.DeleteResult;
 using UpdateResult = MongoDB.Driver.UpdateResult;
 
 namespace i18u.Repositories.Mongo.Interop
@@ -50,6 +51,7 @@ namespace i18u.Repositories.Mongo.Interop
 		/// </summary>
 		/// <param name="filter">The filter to use.</param>
 		/// <param name="update">The update to apply.</param>
+		/// <returns>The <see cref="UpdateResult"/> from the update operation.</returns>
         UpdateResult UpdateOne(FilterDefinition<T> filter, UpdateDefinition<T> update);
 
         /// <summary>
@@ -58,21 +60,54 @@ namespace i18u.Repositories.Mongo.Interop
         /// <param name="filter">The filter to use.</param>
         /// <param name="update">The update to apply.</param>
         /// <param name="options">The options to use when updating.</param>
+		/// <returns>The <see cref="UpdateResult"/> from the update operation.</returns>
         UpdateResult UpdateOne(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions options);
 
 		/// <summary>
-		/// Updates many Mongo entities matching the given filter.
+		/// Updates any Mongo entities matching the given filter.
 		/// </summary>
 		/// <param name="filter">The filter to use.</param>
         /// <param name="update">The update to apply.</param>
+		/// <returns>The <see cref="UpdateResult"/> from the update operation.</returns>
         UpdateResult UpdateMany(FilterDefinition<T> filter, UpdateDefinition<T> update);
 
         /// <summary>
-        /// Updates many Mongo entities matching the given filter.
+        /// Updates any Mongo entities matching the given filter.
         /// </summary>
         /// <param name="filter">The filter to use.</param>
         /// <param name="update">The update to apply.</param>
         /// <param name="options">The options to use when updating.</param>
+		/// <returns>The <see cref="UpdateResult"/> from the update operation.</returns>
         UpdateResult UpdateMany(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions options);
+
+		/// <summary>
+		/// Deletes a single Mongo entity matching the given filter.
+		/// </summary>
+		/// <param name="filter">The filter to use.</param>
+		/// <returns>The <see cref="DeleteResult"/> from the delete operation.</returns>
+        DeleteResult DeleteOne(FilterDefinition<T> filter);
+
+		/// <summary>
+		/// Deletes a single Mongo entity matching the given filter.
+		/// </summary>
+		/// <param name="filter">The filter to use.</param>
+		/// <param name="opts">The options to use when deleting.</param>
+		/// <returns>The <see cref="DeleteResult"/> from the delete operation.</returns>
+        DeleteResult DeleteOne(FilterDefinition<T> filter, DeleteOptions opts);
+
+		/// <summary>
+		/// Deletes any Mongo entities matching the given filter.
+		/// </summary>
+		/// <param name="filter">The filter to use.</param>
+		/// <returns>The <see cref="DeleteResult"/> from the delete operation.</returns>
+        DeleteResult DeleteMany(FilterDefinition<T> filter);
+
+		/// <summary>
+		/// Deletes any Mongo entities matching the given filter.
+		/// </summary>
+		/// <param name="filter">The filter to use.</param>
+		/// <param name="opts">The options to use when deleting.</param>
+		/// <returns>The <see cref="DeleteResult"/> from the delete operation.</returns>
+        DeleteResult DeleteMany(FilterDefinition<T> filter, DeleteOptions opts);
     }
 }

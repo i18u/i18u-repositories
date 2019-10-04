@@ -5,6 +5,7 @@ using System.Linq;
 using i18u.Repositories.Mongo.Results;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using DeleteResult = i18u.Repositories.Mongo.Results.DeleteResult;
 using IMongoClient = i18u.Repositories.Mongo.Interop.IMongoClient;
 using UpdateResult = i18u.Repositories.Mongo.Results.UpdateResult;
 
@@ -39,35 +40,25 @@ namespace i18u.Repositories.Mongo
         {
         }
 
-        /// <inheritdoc />
-        public IDeleteResult Delete(ObjectId id)
-        {
-            throw new System.NotImplementedException();
+		private T WrapMongoResult<T>(Action action) where T : Result, new()
+		{
+            return WrapMongoResult<T>((res) =>
+            {
+                action.Invoke();
+            });
         }
 
-        /// <inheritdoc />
-        public IDeleteResult DeleteMany(FilterDefinition<TModel> filterDefinition)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <inheritdoc />
-        public IInsertResult Insert(TModel model)
-        {
-            var result = new InsertResult();
+		private T WrapMongoResult<T>(Action<T> action) where T : Result, new()
+		{
+			var result = new T();
 			var sw = Stopwatch.StartNew();
 
             try
             {
-
-				Collection.InsertOne(model, false);
-
-				result.Success = true;
+                result.Success = true;
             	result.DocumentsAffected = 1;
-				result.Ids = new []
-				{
-					model.Id,
-				};
+
+				action.Invoke(result);
             }
 			catch (Exception ex)
 			{
@@ -80,7 +71,27 @@ namespace i18u.Repositories.Mongo
                 sw.Stop();
             }
 
-			result.TimeTaken = sw.Elapsed;
+			// Set our value if it hasn't already been set.
+            if (result.TimeTaken != default)
+            {
+                result.TimeTaken = sw.Elapsed;
+            }
+
+            return result;
+		}
+
+        /// <inheritdoc />
+        public IInsertResult Insert(TModel model)
+        {
+            var result = WrapMongoResult<InsertResult>(() =>
+            {
+                Collection.InsertOne(model, false);
+            });
+
+			result.Ids = new []
+			{
+				model.Id,
+			};
 
             return result;
         }
@@ -88,34 +99,17 @@ namespace i18u.Repositories.Mongo
         /// <inheritdoc />
         public IInsertResult InsertMany(IEnumerable<TModel> models)
         {
-            var result = new InsertResult();
-			var sw = Stopwatch.StartNew();
+            var result = WrapMongoResult<InsertResult>(() =>
+            {
+                Collection.InsertMany(models);
+            });
 
-			try
-			{
-				Collection.InsertMany(models);
+            var affectedModelIds = models
+				.Where(model => model.Id != default)
+				.Select(model => model.Id)
+				.ToArray();
 
-                var affectedModelIds = models
-					.Where(model => model.Id == default)
-                    .Select(model => model.Id)
-                    .ToArray();
-
-                result.Success = true;
-            	result.DocumentsAffected = affectedModelIds.Length;
-				result.Ids = affectedModelIds;
-			}
-			catch (Exception ex)
-			{
-                result.ServerError = ex;
-                result.Success = false;
-                result.DocumentsAffected = 0;
-            }
-			finally
-			{
-                sw.Stop();
-            }
-
-            result.TimeTaken = sw.Elapsed;
+			result.Ids = affectedModelIds;
 
             return result;
         }
@@ -123,27 +117,13 @@ namespace i18u.Repositories.Mongo
         /// <inheritdoc />
         public IUpdateResult Update(ObjectId id, UpdateDefinition<TModel> updateDefinition)
         {
-            var result = new UpdateResult();
-            var sw = Stopwatch.StartNew();
-
-            try
-			{
+            var result = WrapMongoResult<UpdateResult>((res) =>
+            {
 				var filter = Builders<TModel>.Filter.Eq(entity => entity.Id, id);
                 var mResult = Collection.UpdateOne(filter, updateDefinition);
 
-                result.Success = true;
-                result.DocumentsAffected = mResult.ModifiedCount;
-            }
-			catch (Exception ex)
-			{
-                result.ServerError = ex;
-                result.Success = false;
-                result.DocumentsAffected = 0;
-            }
-			finally
-			{
-                sw.Stop();
-            }
+                res.DocumentsAffected = mResult.ModifiedCount;
+            });
 
             return result;
         }
@@ -151,26 +131,39 @@ namespace i18u.Repositories.Mongo
         /// <inheritdoc />
         public IUpdateResult UpdateMany(FilterDefinition<TModel> filterDefinition, UpdateDefinition<TModel> updateDefinition)
         {
-            var result = new UpdateResult();
-            var sw = Stopwatch.StartNew();
+            var result = WrapMongoResult<UpdateResult>((res) =>
+            {
+				var mResult = Collection.UpdateMany(filterDefinition, updateDefinition);
 
-			try
-			{
-                var mResult = Collection.UpdateMany(filterDefinition, updateDefinition);
+                res.DocumentsAffected = mResult.ModifiedCount;
+            });
 
-                result.Success = true;
-                result.DocumentsAffected = mResult.ModifiedCount;
-            }
-			catch (Exception ex)
-			{
-                result.ServerError = ex;
-                result.Success = false;
-                result.DocumentsAffected = 0;
-            }
-			finally
-			{
-                sw.Stop();
-            }
+            return result;
+        }
+
+        /// <inheritdoc />
+        public IDeleteResult Delete(ObjectId id)
+        {
+            var result = WrapMongoResult<DeleteResult>((res) =>
+            {
+                var filter = Builders<TModel>.Filter.Eq(doc => doc.Id, id);
+                var mResult = Collection.DeleteOne(filter);
+
+                res.DocumentsAffected = mResult.DeletedCount;
+            });
+
+            return result;
+        }
+
+        /// <inheritdoc />
+        public IDeleteResult DeleteMany(FilterDefinition<TModel> filterDefinition)
+        {
+            var result = WrapMongoResult<DeleteResult>((res) =>
+            {
+                var mResult = Collection.DeleteOne(filterDefinition);
+
+                res.DocumentsAffected = mResult.DeletedCount;
+            });
 
             return result;
         }
