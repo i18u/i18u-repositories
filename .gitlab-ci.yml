@@ -33,4 +33,4 @@ publish-mongo:
     - docker
   script:
     - dotnet pack -c Release -p:PackageVersion=$CI_COMMIT_TAG src/i18u.Repositories.Mongo -o $(pwd)/out # I have $pwd here to support a future breaking change (3.0)
-    - dotnet nuget push -s http://202.91.44.44:37623/v3/index.json -k a15ca435-7eb3-40b3-98c8-0a4dde70bb42 out/i18u.Repositories.Mongo.$CI_COMMIT_TAG.nupkg
+    - dotnet nuget push -s https://nuget.flareline.com/v3/index.json -k a15ca435-7eb3-40b3-98c8-0a4dde70bb42 out/i18u.Repositories.Mongo.$CI_COMMIT_TAG.nupkg
