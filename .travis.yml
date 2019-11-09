@@ -1,0 +1,14 @@
+language: csharp
+mono: none
+dotnet: none
+services:
+  - docker
+
+jobs:
+  include:
+    - stage: build
+      name: docker-build
+      script: docker build -t i18u/repositories:ci-latest .
+    - stage: test
+      name: docker-test
+      script: docker run --rm -it --name i18u/repositories i18u/repositories:ci-latest
