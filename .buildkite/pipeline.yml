@@ -3,4 +3,4 @@ steps:
     command: echo "Hello World!"
     plugins:
       - docker#v3.3.0:
-        image: "docker pull mcr.microsoft.com/dotnet/core/sdk:3.0-alpine"
+          image: "docker pull mcr.microsoft.com/dotnet/core/sdk:3.0-alpine"
