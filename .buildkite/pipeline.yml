@@ -2,5 +2,5 @@ steps:
   - label: Example Pipeline
     plugins:
       - docker#v3.3.0:
-          image: "docker pull mcr.microsoft.com/dotnet/core/sdk:3.0-alpine"
+          image: "mcr.microsoft.com/dotnet/core/sdk:3.0-alpine"
           command: ["echo","Hello World!"]
