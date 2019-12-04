@@ -1,0 +1,21 @@
+name: Package Library
+
+on: 
+  push:
+    tags:
+      - '*'
+
+jobs:
+  package-mongo:
+    runs-on: ubuntu-18.04
+    container:
+      image: mcr.microsoft.com/dotnet/core/sdk:3.0-alpine
+    steps:
+      - uses: actions/checkout@v1
+      - name: dotnet-package
+        env:
+          NUGET_KEY: ${{ secrets.NUGET_KEY }}
+        run: |
+          dotnet pack src/i18u.Repositories.Mongo -c Release -p:PackageVersion=${GITHUB_REF##*/} -o $(pwd)/out
+          dotnet nuget push -s https://nuget.flareline.com/v3/index.json -k $NUGET_KEY
+

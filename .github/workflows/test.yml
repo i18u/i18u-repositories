@@ -1,15 +1,14 @@
-name: Build Library
+name: Test Library
 
 on: [push]
 
 jobs:
-  build-mongo:
+  test-mongo:
     runs-on: ubuntu-18.04
     container:
       image: mcr.microsoft.com/dotnet/core/sdk:3.0-alpine
     steps:
       - uses: actions/checkout@v1
-      - name: dotnet-build
+      - name: dotnet-test
         run: |
-          dotnet publish src/i18u.Repositories.Mongo -c Release -o $(pwd)/out
-
+          dotnet test src/i18u.Repositories.Tests /p:CollectCoverage=true
