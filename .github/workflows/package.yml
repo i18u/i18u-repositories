@@ -15,5 +15,5 @@ jobs:
       - name: dotnet-package
         run: |
           dotnet pack src/i18u.Repositories.Mongo -c Release -p:PackageVersion=${GITHUB_REF##*/} -o $(pwd)/out
-          dotnet nuget push -s https://nuget.pkg.github.com/i18u/index.json -k $GITHUB_TOKEN out/i18u.Repositories.Mongo.${GITHUB_REF##*/}.nupkg
+          dotnet nuget push out/i18u.Repositories.Mongo.${GITHUB_REF##*/}.nupkg -s https://nuget.pkg.github.com/i18u/index.json -k $GITHUB_TOKEN
 
