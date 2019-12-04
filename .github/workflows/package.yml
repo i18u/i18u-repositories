@@ -17,5 +17,5 @@ jobs:
           NUGET_KEY: ${{ secrets.NUGET_KEY }}
         run: |
           dotnet pack src/i18u.Repositories.Mongo -c Release -p:PackageVersion=${GITHUB_REF##*/} -o $(pwd)/out
-          dotnet nuget push -s https://nuget.flareline.com/v3/index.json -k $NUGET_KEY
+          dotnet nuget push -s https://nuget.flareline.com/v3/index.json -k $NUGET_KEY out/i18u.Repositories.Mongo.${GITHUB_REF##*/}.nupkg
 
