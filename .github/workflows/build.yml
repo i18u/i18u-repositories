@@ -11,6 +11,4 @@ jobs:
       - uses: actions/checkout@v1
       - name: dotnet-build
         run: |
-          dotnet publish src/i18u.Repositories.Mongo -c Release -o out
-          mkdir out
-          cp -r src/i18u.Repositories.Mongo/out ./out/i18u.Repositories.Mongo
+          dotnet publish src/i18u.Repositories.Mongo -c Release -o $(pwd)/out
