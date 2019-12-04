@@ -8,7 +8,7 @@ jobs:
     container:
       image: mcr.microsoft.com/dotnet/core/sdk:3.0-alpine
     steps:
-      - uses: actions:checkout@v1
+      - uses: actions/checkout@v1
       - name: dotnet-build
         run: |
           dotnet publish src/i18u.Repositories.Mongo -c Release -o out
