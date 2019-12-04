@@ -1,0 +1,16 @@
+name: build
+
+on: [push]
+
+jobs:
+  build-mongo:
+    runs-on: ubuntu-18.04
+    container:
+      image: mcr.microsoft.com/dotnet/core/sdk:3.0-alpine
+    steps:
+      - uses: actions:checkout@v1
+      - name: dotnet-build
+        run: |
+          dotnet publish src/i18u.Repositories.Mongo -c Release -o out
+          mkdir out
+          cp -r src/i18u.Repositories.Mongo/out ./out/i18u.Repositories.Mongo

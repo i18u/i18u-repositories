@@ -1,9 +1,0 @@
-steps:
-  - label: Example Pipeline
-    plugins:
-      - docker#v3.3.0:
-          image: "mcr.microsoft.com/dotnet/core/sdk:3.0-alpine"
-          command: ["echo","Hello World!"]
-          mount-buildkite-agent: false
-          mounts:
-            - /home/buildkite/agent/buildkite-agent:/usr/bin/buildkite-agent
