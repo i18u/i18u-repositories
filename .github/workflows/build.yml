@@ -6,7 +6,7 @@ jobs:
   build-mongo:
     runs-on: ubuntu-18.04
     container:
-      image: mcr.microsoft.com/dotnet/core/sdk:3.0-alpine
+      image: mcr.microsoft.com/dotnet/core/sdk:3.1-alpine
     steps:
       - uses: actions/checkout@v1
       - name: dotnet-build
