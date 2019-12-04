@@ -13,9 +13,13 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: dotnet-package
+        run: dotnet pack src/i18u.Repositories.Mongo -c Release -p:PackageVersion=${GITHUB_REF##*/} -o $(pwd)/out
+
+      - name: nuget-setup
         env:
           NUGET_KEY: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          dotnet pack src/i18u.Repositories.Mongo -c Release -p:PackageVersion=${GITHUB_REF##*/} -o $(pwd)/out
-          dotnet nuget push out/i18u.Repositories.Mongo.${GITHUB_REF##*/}.nupkg -s https://nuget.pkg.github.com/i18u/index.json -k $NUGET_KEY
+        run: nuget sources add -name "GPR" -Source https://nuget.pkg.github.com/i18u/index.json -Username i18u -Password $NUGET_KEY
+
+      - name: nuget-push
+        run: dotnet nuget push out/i18u.Repositories.Mongo.${GITHUB_REF##*/}.nupkg -s https://nuget.pkg.github.com/i18u/index.json -k $NUGET_KEY
 
