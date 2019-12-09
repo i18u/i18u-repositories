@@ -19,9 +19,8 @@ jobs:
         env:
           NUGET_KEY: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cp src/.nuget.config src/nuget.config
-          sed -i "s/{{Password}}/$NUGET_KEY/g" src/nuget.config
-          cat src/nuget.config
+          cp src/.nuget.config out/nuget.config
+          sed -i "s/{{Password}}/$NUGET_KEY/g" out/nuget.config
 
       - name: nuget-push
         env:
