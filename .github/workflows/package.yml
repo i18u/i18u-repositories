@@ -21,6 +21,7 @@ jobs:
         run: |
           cp src/.NuGet.Config out/NuGet.Config
           sed -i "s/{{Password}}/$NUGET_KEY/g" out/NuGet.Config
+          cp out/NuGet.Config ./NuGet.Config
 
       - name: nuget-push
         run: dotnet nuget push out/i18u.Repositories.Mongo.${GITHUB_REF##*/}.nupkg
