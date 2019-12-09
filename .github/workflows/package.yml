@@ -20,7 +20,7 @@ jobs:
           NUGET_KEY: ${{ secrets.GITHUB_TOKEN }}
         run: |
           apt-get update && apt-get install -y nuget
-          nuget source Add -Name "GitHub" -Source "https://nuget.pkg.github.com/i18u/index.json" -UserName i18u -Password NUGET_KEY
+          nuget source Add -Name "GitHub" -Source "https://nuget.pkg.github.com/i18u/index.json" -UserName i18u -Password $NUGET_KEY
 
       - name: nuget-push
         run: nuget push out/i18u.Repositories.Mongo.${GITHUB_REF##*/}.nupkg -Source "GitHub"
