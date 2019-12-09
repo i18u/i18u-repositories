@@ -23,4 +23,4 @@ jobs:
           nuget source add -name "GitHub" -source "https://nuget.pkg.github.com/i18u/index.json" -Username i18u -Password $NUGET_KEY
 
       - name: nuget-push
-        run: nuget push out/*.nupkg -Source "GitHub" -SkipDuplicate
+        run: nuget push out/*.nupkg -Source "GitHub"
