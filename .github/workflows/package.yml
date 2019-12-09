@@ -21,6 +21,7 @@ jobs:
         run: |
           cp src/.nuget.config src/nuget.config
           sed -i "s/{{Password}}/$NUGET_KEY/g" src/nuget.config
+          cat src/nuget.config
 
       - name: nuget-push
         run: dotnet nuget push out/i18u.Repositories.Mongo.${GITHUB_REF##*/}.nupkg -s https://nuget.pkg.github.com/i18u/index.json
