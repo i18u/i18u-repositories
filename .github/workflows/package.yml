@@ -19,9 +19,8 @@ jobs:
         env:
           NUGET_KEY: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cp src/.nuget.config out/nuget.config
-          sed -i "s/{{Password}}/$NUGET_KEY/g" out/nuget.config
-          cat out/nuget.config
+          cp src/.NuGet.Config out/NuGet.Config
+          sed -i "s/{{Password}}/$NUGET_KEY/g" out/NuGet.Config
 
       - name: nuget-push
         run: dotnet nuget push out/i18u.Repositories.Mongo.${GITHUB_REF##*/}.nupkg
