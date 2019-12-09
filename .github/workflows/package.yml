@@ -9,7 +9,7 @@ jobs:
   package-mongo:
     runs-on: ubuntu-18.04
     container:
-      image: mcr.microsoft.com/dotnet/core/sdk:3.1-alpine
+      image: mcr.microsoft.com/dotnet/core/sdk:3.1
     steps:
       - uses: actions/checkout@v1
       - name: dotnet-package
@@ -19,9 +19,8 @@ jobs:
         env:
           NUGET_KEY: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cp src/.NuGet.Config out/NuGet.Config
-          sed -i "s/{{Password}}/$NUGET_KEY/g" out/NuGet.Config
-          cp out/NuGet.Config ./NuGet.Config
+          apt-get update && apt-get install -y nuget
+          nuget source Add -Name "GitHub" -Source "https://nuget.pkg.github.com/i18u/index.json" -UserName i18u -Password NUGET_KEY
 
       - name: nuget-push
-        run: dotnet nuget push out/i18u.Repositories.Mongo.${GITHUB_REF##*/}.nupkg
+        run: nuget push out/i18u.Repositories.Mongo.${GITHUB_REF##*/}.nupkg -Source "GitHub"
