@@ -24,4 +24,4 @@ jobs:
           nuget setapikey $NUGET_KEY -Source "https://nuget.pkg.github.com/i18u/index.json"
 
       - name: nuget-push
-        run: nuget push out/*.nupkg -Source "GitHub"
+        run: nuget push out/*.nupkg -Source "https://nuget.pkg.github.com/i18u/index.json"
