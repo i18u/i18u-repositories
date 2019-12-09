@@ -20,7 +20,8 @@ jobs:
           NUGET_KEY: ${{ secrets.GITHUB_TOKEN }}
         run: |
           apt-get update && apt-get install -y nuget
-          nuget source add -name "GitHub" -source "https://nuget.pkg.github.com/i18u/index.json" -Username i18u -Password $NUGET_KEY
+          nuget source Add -Name "GitHub" -Source "https://nuget.pkg.github.com/i18u/index.json"
+          nuget setapikey $NUGET_KEY -Source "https://nuget.pkg.github.com/i18u/index.json"
 
       - name: nuget-push
         run: nuget push out/*.nupkg -Source "GitHub"
